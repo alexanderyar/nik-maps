@@ -1,0 +1,41 @@
+[
+    {
+      "name": "Borscht",
+      "category": "restaurant",
+      "lat": 51.081203,
+      "lng": -114.143134,
+      "id": "1"
+    },
+     {
+      "name": "Roasted russian",
+      "category": "restaurant",
+      "lat": 51.118595,
+      "lng": -114.110184,
+      "id": "2"
+       
+
+
+    },
+    {
+      "name": "Drunk Himars",
+      "category": "pub",
+      "lat":  51.084061,
+      "lng": -114.077513,
+      "id":"3"
+     
+    },
+    {
+      "name": "CBD coffee",
+      "category": "cafe",
+      "lat": 51.053468,
+      "lng": -114.079616,
+      "id":"4"
+    },
+     {
+      "name": "coffee Ukraine",
+      "category": "cafe",
+      "lat": 51.124222,
+      "lng": -114.216370,
+      "id":"5"
+    }
+  ]
