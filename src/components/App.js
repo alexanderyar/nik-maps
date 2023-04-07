@@ -5,8 +5,14 @@ import { getDatabase, getElementById } from "../services/api";
 import { Map, Pin, Modal, SelectCategory } from "../components";
 import { CssBaseline, Container, Grid } from "../materialUI";
 import { PaperItem as Item } from "./utilities/PaperItem";
+import { useMediaQuery, useTheme } from "@mui/material";
 
-// import data from "../api/db.json";
+// const StyledGrid = styled(Grid)(({ theme }) => ({
+//   // flexDirection: "column-reverse",
+//   [theme.breakpoints.up("sm")]: {
+//     // flexDirection: "row",
+//   },
+// }));
 
 function App() {
   const [category, setCategory] = useState("");
@@ -94,7 +100,7 @@ function App() {
 
   // locations array that is sent to the Map component. either default or categorized
   const allLocationsJsx =
-    category === ""
+    category === "" || category === "all"
       ? allLocations?.map((location) => (
           <Pin
             key={location.id}
@@ -111,36 +117,38 @@ function App() {
             clickedCardId={clickedCardId}
           ></Pin>
         ));
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const direction = matches ? "row" : "column-reverse";
   return (
-    <Container sx={{ mt: 4 }}>
+    <>
       <CssBaseline />
-      {showModal === true && (
-        <Modal
-          clickedCardIdInfo={clickedCardIdInfo}
-          onClose={onModalOpenToggle}
-          handleBackdropClick={handleBackdropClick}
-        />
-      )}
-      <Grid container spacing={2}>
-        <Grid item xs={2}>
-          <Item>
-            <SelectCategory
-              handleSelectChange={handleSelectChange}
-              category={category}
-            />
-          </Item>
+      <Container sx={{ mt: 4 }}>
+        {showModal === true && (
+          <Modal
+            clickedCardIdInfo={clickedCardIdInfo}
+            onClose={onModalOpenToggle}
+            handleBackdropClick={handleBackdropClick}
+          />
+        )}
+        <Grid container spacing={2} direction={direction}>
+          <Grid item xs={2}>
+            <Item>
+              <SelectCategory
+                handleSelectChange={handleSelectChange}
+                category={category}
+              />
+            </Item>
+          </Grid>
+          <Grid item xs={10}>
+            <Item>
+              <Map allLocationsJsx={allLocationsJsx} onPinClick={onPinClick} />
+            </Item>
+          </Grid>
         </Grid>
-        <Grid item xs={10}>
-          <Item>
-            <Map allLocationsJsx={allLocationsJsx} onPinClick={onPinClick} />
-          </Item>
-        </Grid>
-      </Grid>
-      {/* <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/:id" element={<Modal />} />
-      </Routes> */}
-    </Container>
+      </Container>
+    </>
   );
 }
 

@@ -23,6 +23,7 @@ export function SelectCategory({ handleSelectChange, category }) {
           label="Category"
           onChange={handleSelectChange}
         >
+          <MenuItem value={"all"}>All</MenuItem>
           <MenuItem value={"restaurant"}>Restaurants</MenuItem>
           <MenuItem value={"cafe"}>Cafe</MenuItem>
           <MenuItem value={"pub"}>Pubs</MenuItem>
