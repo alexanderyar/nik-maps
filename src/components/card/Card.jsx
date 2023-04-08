@@ -15,27 +15,23 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 export const OutlinedCard = ({ clickedCardIdInfo }) => {
   const imgUrl = [
     {
-      id: "1",
+      id: "0",
       url: "https://images.pexels.com/photos/845451/pexels-photo-845451.jpeg",
     },
     {
-      id: "12",
+      id: "1",
       url: "https://images.pexels.com/photos/8867472/pexels-photo-8867472.jpeg",
     },
     {
-      id: "123",
+      id: "2",
       url: "https://images.pexels.com/photos/7709187/pexels-photo-7709187.jpeg",
     },
   ];
-
+  console.log(imgUrl);
   const [imgUrlIndex, setImgUrlIndex] = useState(0);
   console.log(imgUrlIndex);
   const [slideDirection, setSlideDirection] = useState("left");
   const [isAnimating, setIsAnimating] = useState(false);
-
-  const handleSlideExited = () => {
-    setIsAnimating(false);
-  };
 
   const handleRightChevronClick = () => {
     setSlideDirection("right");
@@ -59,7 +55,18 @@ export const OutlinedCard = ({ clickedCardIdInfo }) => {
             fontSize={"large"}
             onClick={handleLeftChevronClick}
           />
-          <Slide
+          {imgUrl.map((img) => (
+            <Slide
+              key={img.id}
+              direction={slideDirection}
+              in={imgUrlIndex.toString() === img.id}
+              mountOnEnter
+              unmountOnExit
+            >
+              <StyledImg src={img.url} />
+            </Slide>
+          ))}
+          {/* <Slide
             direction={slideDirection}
             in={imgUrlIndex === 0}
             mountOnEnter
@@ -82,7 +89,7 @@ export const OutlinedCard = ({ clickedCardIdInfo }) => {
             unmountOnExit
           >
             <StyledImg src={imgUrl[2].url} />
-          </Slide>
+          </Slide> */}
           <ChevronRightIcon
             fontSize={"large"}
             onClick={handleRightChevronClick}
