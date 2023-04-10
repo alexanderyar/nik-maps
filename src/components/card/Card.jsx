@@ -12,7 +12,18 @@ import { StyledImg } from "./Card.styled";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
+// import Swiper JS
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "./styles.css";
+
 export const OutlinedCard = ({ clickedCardIdInfo }) => {
+  /////////////////
+
+  /////////////////////
   const imgUrl = [
     {
       id: "0",
@@ -27,22 +38,21 @@ export const OutlinedCard = ({ clickedCardIdInfo }) => {
       url: "https://images.pexels.com/photos/7709187/pexels-photo-7709187.jpeg",
     },
   ];
-  console.log(imgUrl);
-  const [imgUrlIndex, setImgUrlIndex] = useState(0);
-  console.log(imgUrlIndex);
-  const [slideDirection, setSlideDirection] = useState("left");
-  const [isAnimating, setIsAnimating] = useState(false);
 
-  const handleRightChevronClick = () => {
-    setSlideDirection("right");
-    setImgUrlIndex((i) => (i + 1) % imgUrl.length);
-  };
-  const handleLeftChevronClick = () => {
-    setSlideDirection("left");
-    setImgUrlIndex(
-      (i) => (i === 0 ? imgUrl.length - 1 : i - 1) % imgUrl.length
-    );
-  };
+  // const [imgUrlIndex, setImgUrlIndex] = useState(0);
+  // const [slideDirection, setSlideDirection] = useState("left");
+
+  // const handleRightChevronClick = () => {
+  //   setSlideDirection("right");
+  //   setImgUrlIndex((i) => (i + 1) % imgUrl.length);
+  // };
+  // const handleLeftChevronClick = () => {
+  //   setSlideDirection("left");
+  //   setImgUrlIndex(
+  //     (i) => (i === 0 ? imgUrl.length - 1 : i - 1) % imgUrl.length
+  //   );
+  // };
+
   const card = (
     <React.Fragment>
       <CardContent>
@@ -51,7 +61,24 @@ export const OutlinedCard = ({ clickedCardIdInfo }) => {
         </Typography>
 
         <Box display={"flex"} alignItems={"center"} justifyContent={"center"}>
-          <ChevronLeftIcon
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            loop={true}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Pagination, Navigation]}
+            className="mySwiper"
+          >
+            {imgUrl.map((item) => (
+              <SwiperSlide>
+                <StyledImg src={item.url} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          {/* <ChevronLeftIcon
             fontSize={"large"}
             onClick={handleLeftChevronClick}
           />
@@ -65,75 +92,23 @@ export const OutlinedCard = ({ clickedCardIdInfo }) => {
             >
               <StyledImg src={img.url} />
             </Slide>
-          ))}
+          ))} */}
           {/* <Slide
             direction={slideDirection}
-            in={imgUrlIndex === 0}
+            in={imgUrlIndex.toString() === imgUrl[imgUrlIndex].id}
             mountOnEnter
             unmountOnExit
           >
-            <StyledImg src={imgUrl[0].url} />
-          </Slide>
-          <Slide
-            direction={slideDirection}
-            in={imgUrlIndex === 1}
-            mountOnEnter
-            unmountOnExit
-          >
-            <StyledImg src={imgUrl[1].url} />
-          </Slide>
-          <Slide
-            direction={slideDirection}
-            in={imgUrlIndex === 2}
-            mountOnEnter
-            unmountOnExit
-          >
-            <StyledImg src={imgUrl[2].url} />
+            <StyledImg src={imgUrl[imgUrlIndex].url} />
           </Slide> */}
-          <ChevronRightIcon
+          {/* <ChevronRightIcon
             fontSize={"large"}
             onClick={handleRightChevronClick}
-          />
+          /> */}
         </Box>
       </CardContent>
     </React.Fragment>
   );
-
-  // function ImageSlider({ images }) {
-  //   const [currentIndex, setCurrentIndex] = useState(0);
-
-  //   const nextIndex = (currentIndex + 1) % images.length;
-
-  //   return (
-  //     <div>
-  //       <Slide
-  //         direction="left"
-  //         in={currentIndex === 0}
-  //         mountOnEnter
-  //         unmountOnExit
-  //       >
-  //         <img src={images[0]} alt="First slide" />
-  //       </Slide>
-  //       <Slide
-  //         direction="left"
-  //         in={currentIndex === 1}
-  //         mountOnEnter
-  //         unmountOnExit
-  //       >
-  //         <img src={images[1]} alt="Second slide" />
-  //       </Slide>
-  //       <Slide
-  //         direction="left"
-  //         in={currentIndex === 2}
-  //         mountOnEnter
-  //         unmountOnExit
-  //       >
-  //         <img src={images[2]} alt="Third slide" />
-  //       </Slide>
-  //       <button onClick={() => setCurrentIndex(nextIndex)}>Next slide</button>
-  //     </div>
-  //   );
-  // }
 
   return (
     <Box sx={{ minWidth: 275 }}>
